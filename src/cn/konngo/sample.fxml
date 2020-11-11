@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.konngo.Controller">
+   <children>
+      <Button layoutX="29.0" layoutY="29.0" mnemonicParsing="false" onMouseClicked="#chooseFile" prefHeight="29.0" prefWidth="91.0" text="选择文件" />
+      <TextField fx:id="fileField" layoutX="158.0" layoutY="89.0" prefHeight="23.0" prefWidth="391.0" />
+      <Label layoutX="29.0" layoutY="89.0" prefHeight="23.0" prefWidth="91.0" text="当前已选择：" />
+      <Button layoutX="29.0" layoutY="148.0" mnemonicParsing="false" onMouseClicked="#OutputFile" prefHeight="29.0" prefWidth="107.0" text="执行文件转换" />
+      <TextArea fx:id="console" layoutX="29.0" layoutY="211.0" prefHeight="93.0" prefWidth="532.0" />
+   </children>
+</AnchorPane>
