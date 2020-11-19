@@ -27,29 +27,47 @@ public class ExcelUtil {
         row.createCell(1).setCellValue("考勤时间");
         row.createCell(2).setCellValue("下班/上班");
         int count=1;
+        // 遍历考勤信息
         for (Attence a:attences) {
-            boolean flag=true;
+//            boolean flag=true;
+            // 没有考勤信息跳过
+            if (a.getTimes()==null){
+                continue;
+            }
+
+
+            int demo=1;
+            // 遍历考勤属性
             for (int i = 0; i < a.getTimes().length ; i++) {
                 if (a.getTimes()[i].equals("")) continue;
+                // 插入到excel表格中
                 row = sheet.createRow(count);
+                if (!a.getAno().contains("K")){
+                    a.setAno("K"+a.getAno());
+                }
                 row.createCell(0).setCellValue(a.getAno());
                 row.createCell(1).setCellValue(a.getDates().trim()+" "+a.getTimes()[i]);
-                if (i==a.getTimes().length-1){
-                    if (flag){
-                        row.createCell(2).setCellValue("1");
-                    }else {
-                        row.createCell(2).setCellValue("2");
-                    }
-                }else {
-                    flag=false;
-                    row.createCell(2).setCellValue("1");
-                }
+                row.createCell(2).setCellValue(demo++);
+//                if (i==a.getTimes().length-1){
+//                    if (flag){
+//                        row.createCell(2).setCellValue("1");
+//                    }else {
+//                        row.createCell(2).setCellValue("2");
+//                    }
+//                }else {
+//                    flag=false;
+//                    row.createCell(2).setCellValue("1");
+//                }
                 count++;
             }
         }
         workbook.setSheetName(0,"AttLog");//设置sheet的Name
+
+        // 修改文件名 输出为xls文件
+        String name=fileName.substring(0,fileName.lastIndexOf("."));
+
         //文档输出
-        FileOutputStream out = new FileOutputStream(System.getProperty("user.home")+"/Desktop/transform-"+fileName);
+        FileOutputStream out = new FileOutputStream(System.getProperty("user.home")+"/Desktop/transform-"+name+".xls");
         workbook.write(out);
         out.close();
 
@@ -62,7 +80,7 @@ public class ExcelUtil {
         Attence materiel;
 
         List<Attence> BOM = new ArrayList<>();
-
+        // 如果是xls文件
         if (wb instanceof HSSFWorkbook) {
             HSSFWorkbook xs= (HSSFWorkbook) wb;
             for (int s = 0; s < xs.getNumberOfSheets(); s++) {
@@ -75,21 +93,21 @@ public class ExcelUtil {
                     for (int j = 0; j < row.getLastCellNum(); j++) {
                         HSSFCell cell = row.getCell(j);
                         switch (cell.getColumnIndex()) {
+//                            case 0:
+//                                break;
                             case 0:
-                                break;
-                            case 1:
                                 materiel.setAno(cell.toString());
                                 break;
-                            case 2:
+                            case 1:
                                 materiel.setName(cell.toString());
                                 break;
-                            case 3:
+                            case 2:
                                 materiel.setDep(cell.toString());
                                 break;
-                            case 4:
+                            case 3:
                                 materiel.setDates(cell.toString());
                                 break;
-                            case 5:
+                            case 4:
                                 // 时间
                                 materiel.setTimes(cell.toString().split(" "));
                                 break;
@@ -101,6 +119,7 @@ public class ExcelUtil {
                     BOM.add(materiel);
                 }
             }
+            //如果是xlsx文件
         } else if (wb instanceof XSSFWorkbook) {
             XSSFWorkbook xs = (XSSFWorkbook) wb;
             for (int s = 0; s < xs.getNumberOfSheets(); s++) {
@@ -113,21 +132,21 @@ public class ExcelUtil {
                     for (int j = 0; j < row.getLastCellNum(); j++) {
                         XSSFCell cell = row.getCell(j);
                         switch (cell.getColumnIndex()) {
+//                            case 0:
+//                                break;
                             case 0:
-                                break;
-                            case 1:
                                 materiel.setAno(cell.toString());
                                 break;
-                            case 2:
+                            case 1:
                                 materiel.setName(cell.toString());
                                 break;
-                            case 3:
+                            case 2:
                                 materiel.setDep(cell.toString());
                                 break;
-                            case 4:
+                            case 3:
                                 materiel.setDates(cell.toString());
                                 break;
-                            case 5:
+                            case 4:
                                 // 时间
                                 materiel.setTimes(cell.toString().split(" "));
                                 break;
@@ -136,6 +155,7 @@ public class ExcelUtil {
                                 break;
                         }
                     }
+
                     BOM.add(materiel);
                 }
             }

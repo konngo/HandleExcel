@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 
+    /**
+     *  使用JavaFx作为窗口界面
+     *  初始化时打开主窗口
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
