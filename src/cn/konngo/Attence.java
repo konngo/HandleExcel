@@ -31,7 +31,8 @@ public class Attence {
     }
 
     public void setDates(String dates) {
-        this.dates = dates;
+        // 对日期格式进行修改
+        this.dates = dates.replaceAll("-", "/");
     }
 
     public String getAno() {
