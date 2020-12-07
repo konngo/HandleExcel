@@ -23,6 +23,12 @@ public class Attence {
     }
 
     public void setTimes(String[] times) {
+        // 去掉 时间 类似：03:32:12 最开始的0
+        for (int i = 0; i < times.length; i++) {
+            if (times[i].indexOf("0")==0){
+                times[i]=times[i].substring(1);
+            }
+        }
         this.times = times;
     }
 
@@ -32,6 +38,7 @@ public class Attence {
 
     public void setDates(String dates) {
         // 对日期格式进行修改
+        // - 换成  /
         this.dates = dates.replaceAll("-", "/");
     }
 
