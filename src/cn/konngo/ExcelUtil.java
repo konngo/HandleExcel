@@ -34,7 +34,9 @@ public class ExcelUtil {
             if (a.getTimes()==null){
                 continue;
             }
-
+            // 修改员工号
+            a.setAno(changeANO(a.getAno()));
+            System.out.println("工号："+a.getAno());
 
             int demo=1;
             // 遍历考勤属性
@@ -42,9 +44,8 @@ public class ExcelUtil {
                 if (a.getTimes()[i].equals("")) continue;
                 // 插入到excel表格中
                 row = sheet.createRow(count);
-                if (!a.getAno().contains("K")){
-                    a.setAno("K"+a.getAno());
-                }
+
+
                 row.createCell(0).setCellValue(a.getAno());
                 row.createCell(1).setCellValue(a.getDates().trim()+" "+a.getTimes()[i]);
                 row.createCell(2).setCellValue(demo++);
@@ -71,6 +72,22 @@ public class ExcelUtil {
         workbook.write(out);
         out.close();
 
+    }
+
+    /**
+     *  修改工号
+     */
+    private static String changeANO(String ano) {
+        if (ano==null||ano.equals("")){
+            return "";
+        }
+        char x=ano.charAt(0);
+        ano=ano.substring(1,ano.length());
+        switch (x){
+            case '1':ano="K"+ano;break;
+            case '2':ano="A"+ano;break;
+        }
+        return ano;
     }
 
 
